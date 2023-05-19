@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Mark\\RiderProjects\\Dataflow\\Dataflow.csproj": {}
+    "C:\\Users\\litey\\RiderProjects\\Dataflow\\Dataflow.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Mark\\RiderProjects\\Dataflow\\Dataflow.csproj": {
+    "C:\\Users\\litey\\RiderProjects\\Dataflow\\Dataflow.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Mark\\RiderProjects\\Dataflow\\Dataflow.csproj",
+        "projectUniqueName": "C:\\Users\\litey\\RiderProjects\\Dataflow\\Dataflow.csproj",
         "projectName": "Dataflow",
-        "projectPath": "C:\\Users\\Mark\\RiderProjects\\Dataflow\\Dataflow.csproj",
-        "packagesPath": "C:\\Users\\Mark\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Mark\\RiderProjects\\Dataflow\\obj\\",
+        "projectPath": "C:\\Users\\litey\\RiderProjects\\Dataflow\\Dataflow.csproj",
+        "packagesPath": "C:\\Users\\litey\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\litey\\RiderProjects\\Dataflow\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Mark\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\litey\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0"

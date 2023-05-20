@@ -1,16 +1,12 @@
 ﻿using Dataflow.Models;
 using Microsoft.AspNetCore.Mvc;
 
-using Microsoft.AspNetCore.Mvc;
-
 namespace Dataflow.Controllers;
 
 [ApiController]
-[Route("[controller]")]
-
+[Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly List<Room?> _rooms = new List<Room?>();
     private readonly List<User?> _users = new()
     {
         new User()
@@ -24,8 +20,8 @@ public class UserController : ControllerBase
             PhoneNumber = "1234567890",
             LastLogin = DateTime.Now,
             IsOnline = true,
+            Role = Role.Admin,
             ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-
         },
         new User()
         {
@@ -38,23 +34,25 @@ public class UserController : ControllerBase
             PhoneNumber = "1234567890",
             LastLogin = DateTime.Now,
             IsOnline = true,
+            Role = Role.User,
             ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         }
     };
+
     [HttpGet]
     [Route("GetAllUsers")]
     public IActionResult Get()
     {
         return Ok(_users);
     }
-    
+
     [HttpGet]
     [Route("GetUser")]
     public IActionResult Get(int id)
     {
         return Ok(_users.FirstOrDefault(u => u.Id == id));
     }
-    
+
     [HttpPost]
     [Route("AddUser")]
     public IActionResult Post(User user)
@@ -67,7 +65,28 @@ public class UserController : ControllerBase
     [Route("DeleteUser")]
     public IActionResult Delete(int id)
     {
-        _users.Remove(_users.FirstOrDefault(u => u != null && u.Id == id));
-        return Ok();
+        var user = _users.FirstOrDefault(u => u != null && u.Id == id);
+        if (user == null) return NotFound();
+        _users.Remove(user);
+        return NoContent();
+    }
+
+    [HttpPatch]
+    [Route("PatchUser")]
+    public IActionResult Update(User user)
+    {
+        var existinguser = _users.FirstOrDefault(u => u != null);
+        if (existinguser == null) return NotFound();
+        existinguser.Username = user.Username;
+        existinguser.PasswordHash = user.PasswordHash;
+        existinguser.Email = user.Email;
+        existinguser.FirstName = user.FirstName;
+        existinguser.LastName = user.LastName;
+        existinguser.PhoneNumber = user.PhoneNumber;
+        existinguser.LastLogin = user.LastLogin;
+        existinguser.IsOnline = user.IsOnline;
+        existinguser.Role = user.Role;
+        existinguser.ProfilePicUrl = user.ProfilePicUrl;
+        return NoContent();
     }
 }

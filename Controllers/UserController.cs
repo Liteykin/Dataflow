@@ -1,4 +1,5 @@
 ﻿using Dataflow.Models;
+using Dataflow.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dataflow.Controllers;
@@ -7,7 +8,9 @@ namespace Dataflow.Controllers;
 [Route("api/[controller]")]
 public class UserController : ControllerBase
 {
-    private readonly List<User?> _users = new()
+    private readonly IUserService _userService;
+
+    private static List<User?> _users = new()
     {
         new User()
         {
@@ -18,9 +21,9 @@ public class UserController : ControllerBase
             FirstName = "Admin",
             LastName = "Admin",
             PhoneNumber = "1234567890",
-            LastLogin = DateTime.Now,
+            CreatedAt = DateTime.Now,
             IsOnline = true,
-            Role = Role.Admin,
+            Tier = Tier.Tier3,
             ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         },
         new User()
@@ -32,61 +35,46 @@ public class UserController : ControllerBase
             FirstName = "User",
             LastName = "User",
             PhoneNumber = "1234567890",
-            LastLogin = DateTime.Now,
+            CreatedAt = DateTime.Now,
             IsOnline = true,
-            Role = Role.User,
+            Tier = Tier.Tier1,
             ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         }
     };
 
-    [HttpGet]
-    [Route("GetAllUsers")]
-    public IActionResult Get()
+    public UserController(IUserService userService)
     {
-        return Ok(_users);
+        _userService = userService;
     }
 
-    [HttpGet]
-    [Route("GetUser")]
-    public IActionResult Get(int id)
+    [HttpGet("GetAllUsers")]
+    public ActionResult<List<User>> Get()
     {
-        return Ok(_users.FirstOrDefault(u => u.Id == id));
+        return Ok(_userService.GetAllUsers());
     }
 
-    [HttpPost]
-    [Route("AddUser")]
-    public IActionResult Post(User user)
+    [HttpGet("{id}")]
+    public ActionResult<User> Get(int id)
     {
-        _users.Add(user);
-        return Ok();
+        return Ok(_userService.GetUserById(id));
     }
 
-    [HttpDelete]
-    [Route("DeleteUser")]
+    [HttpPost("AddUser")]
+    public ActionResult<User> Post(User newUser)
+    {
+        return Ok(_userService.AddUser(newUser));
+    }
+
+    [HttpDelete("DeleteUser/{id}")]
     public IActionResult Delete(int id)
     {
-        var user = _users.FirstOrDefault(u => u != null && u.Id == id);
-        if (user == null) return NotFound();
-        _users.Remove(user);
-        return NoContent();
+        return Ok(_userService.DeleteUser(id));
     }
 
-    [HttpPatch]
-    [Route("PatchUser")]
-    public IActionResult Update(User user)
+
+    [HttpPatch("PatchUser/{id}")]
+    public IActionResult Patch(int id, User user)
     {
-        var existinguser = _users.FirstOrDefault(u => u != null);
-        if (existinguser == null) return NotFound();
-        existinguser.Username = user.Username;
-        existinguser.PasswordHash = user.PasswordHash;
-        existinguser.Email = user.Email;
-        existinguser.FirstName = user.FirstName;
-        existinguser.LastName = user.LastName;
-        existinguser.PhoneNumber = user.PhoneNumber;
-        existinguser.LastLogin = user.LastLogin;
-        existinguser.IsOnline = user.IsOnline;
-        existinguser.Role = user.Role;
-        existinguser.ProfilePicUrl = user.ProfilePicUrl;
-        return NoContent();
+        return Ok(_userService.PatchUser(id, user));
     }
 }

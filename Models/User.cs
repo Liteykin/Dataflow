@@ -9,14 +9,10 @@ public class User
     public string Email { get; set; } = string.Empty;
     public string PhoneNumber { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
-    public DateTime LastLogin { get; set; } = DateTime.Now;
+    public DateTime CreatedAt { get; set; } = default!;
     public bool IsOnline { get; set; } = default!;
-    public Role Role { get; set; } = default!;
+    public Tier Tier { get; set; } = default!;
     public string ProfilePicUrl { get; set; } = string.Empty;
 
     // Navigation properties
-    public List<UserRoom> UserRooms { get; set; } = null!;
-    public List<Message> Messages { get; set; } = null!;
-    public List<MessageReaction> MessageReactions { get; set; } = null!;
-    public List<Bot> Bots { get; set; } = null!;
 }

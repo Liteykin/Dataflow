@@ -48,33 +48,33 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("GetAllUsers")]
-    public ActionResult<List<User>> Get()
+    public async Task<ActionResult<List<User>>> Get()
     {
-        return Ok(_userService.GetAllUsers());
+        return Ok(await _userService.GetAllUsers());
     }
 
     [HttpGet("{id}")]
-    public ActionResult<User> Get(int id)
+    public async Task<ActionResult<User>> Get(int id)
     {
-        return Ok(_userService.GetUserById(id));
+        return Ok(await _userService.GetUserById(id));
     }
 
     [HttpPost("AddUser")]
-    public ActionResult<User> Post(User newUser)
+    public async Task<ActionResult<User>> Post(User newUser)
     {
-        return Ok(_userService.AddUser(newUser));
+        return Ok(await _userService.AddUser(newUser));
     }
 
     [HttpDelete("DeleteUser/{id}")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
-        return Ok(_userService.DeleteUser(id));
+        return Ok(await _userService.DeleteUser(id));
     }
 
 
     [HttpPatch("PatchUser/{id}")]
-    public IActionResult Patch(int id, User user)
+    public async Task<IActionResult> Patch(int id, User user)
     {
-        return Ok(_userService.PatchUser(id, user));
+        return Ok(await _userService.PatchUser(id, user));
     }
 }

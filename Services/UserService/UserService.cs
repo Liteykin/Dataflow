@@ -36,53 +36,62 @@ public class UserService : IUserService
         }
     };
 
-    public List<User?> GetAllUsers()
+    public async Task<ServiceResponse<List<User?>>> GetAllUsers()
     {
-        return _users;
+        var serviceResponse = new ServiceResponse<List<User?>>();
+        serviceResponse.Data = _users;
+        return serviceResponse;
     }
 
-    public User? GetUserById(int id)
+    public async Task<ServiceResponse<User?>> GetUserById(int id)
     {
-        return _users.FirstOrDefault(u => u != null && u.Id == id);
+        var serviceResponse = new ServiceResponse<User?>();
+        serviceResponse.Data = _users.FirstOrDefault(u => u?.Id == id);
+        return serviceResponse;
     }
 
-    public List<User?> AddUser(User? newUser)
+    public async Task<ServiceResponse<User?>> AddUser(User? newUser)
     {
+        var serviceResponse = new ServiceResponse<User?>();
         _users.Add(newUser);
-        return _users;
+        serviceResponse.Data = newUser;
+        return serviceResponse;
     }
 
-    public bool DeleteUser(int id)
+    public async Task<ServiceResponse<User?>> DeleteUser(int id)
     {
         var user = _users.FirstOrDefault(u => u != null && u.Id == id);
-        if (user == null)
-        {
-            return false;
-        }
-
+        _ = _users.Remove(user);
         _users.Remove(user);
-        return true;
+        var serviceResponse = new ServiceResponse<User?>();
+        serviceResponse.Data = user;
+        return serviceResponse;
     }
 
-    public User? PatchUser(int id, User updatedUser)
+    public async Task<ServiceResponse<User?>>PatchUser(int id, User updatedUser)
     {
+        var serviceResponse = new ServiceResponse<User?>();
         var existingUser = _users.FirstOrDefault(u => u != null && u.Id == id);
-        if (existingUser == null)
+
+        if (existingUser != null)
         {
-            return null;
+            existingUser.Username = updatedUser.Username;
+            existingUser.PasswordHash = updatedUser.PasswordHash;
+            existingUser.Email = updatedUser.Email;
+            existingUser.FirstName = updatedUser.FirstName;
+            existingUser.LastName = updatedUser.LastName;
+            existingUser.PhoneNumber = updatedUser.PhoneNumber;
+            existingUser.CreatedAt = updatedUser.CreatedAt;
+            existingUser.IsOnline = updatedUser.IsOnline;
+            existingUser.Tier = updatedUser.Tier;
+            existingUser.ProfilePicUrl = updatedUser.ProfilePicUrl;
+            
+            serviceResponse.Data = existingUser;
+            return serviceResponse;
+            
         }
-
-        existingUser.Username = updatedUser.Username;
-        existingUser.PasswordHash = updatedUser.PasswordHash;
-        existingUser.Email = updatedUser.Email;
-        existingUser.FirstName = updatedUser.FirstName;
-        existingUser.LastName = updatedUser.LastName;
-        existingUser.PhoneNumber = updatedUser.PhoneNumber;
-        existingUser.CreatedAt = updatedUser.CreatedAt;
-        existingUser.IsOnline = updatedUser.IsOnline;
-        existingUser.Tier = updatedUser.Tier;
-        existingUser.ProfilePicUrl = updatedUser.ProfilePicUrl;
-
-        return existingUser;
+        serviceResponse.Success = false;
+        serviceResponse.Message = "User not found.";
+        return serviceResponse;
     }
 }

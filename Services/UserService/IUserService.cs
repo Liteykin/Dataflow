@@ -4,9 +4,9 @@ namespace Dataflow.Services.UserService;
 
 public interface IUserService
 {
-    List<User?> GetAllUsers();
-    User? GetUserById(int id);
-    List<User?> AddUser(User? newUser);
-    bool DeleteUser(int id);
-    User? PatchUser(int id, User updatedUser);
+    Task<ServiceResponse<List<User?>>> GetAllUsers();
+    Task<ServiceResponse<User?>> GetUserById(int id);
+    Task<ServiceResponse<User?>> AddUser(User? newUser);
+    Task<ServiceResponse<User?>> DeleteUser(int id);
+    Task<ServiceResponse<User?>> PatchUser(int id, User updatedUser);
 }

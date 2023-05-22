@@ -1,4 +1,5 @@
 ﻿using Dataflow.Models;
+using Dataflow.Services.UserService;
 
 namespace Dataflow.Services.EventService;
 
@@ -28,7 +29,8 @@ public class EventService : IEventService
 
     public Event? GetEventById(int id)
     {
-        return _events.FirstOrDefault(e => e.Id == id);
+        return _events.FirstOrDefault(e => e.Id == id)??
+               throw new Exception("Event not found");
     }
 
     public List<Event?> AddEvent(Event? newEvent)

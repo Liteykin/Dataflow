@@ -8,5 +8,5 @@ public interface IEventService
     Event? GetEventById(int id);
     List<Event?> AddEvent(Event? newEvent);
     bool DeleteEvent(int id);
-    Event? PatchEvent(int id, User updatedEvent);
+    Event? PatchEvent(int id, Event updatedEvent);
 }

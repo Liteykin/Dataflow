@@ -1,97 +1,106 @@
-﻿using Dataflow.Models;
+﻿using AutoMapper;
+using Dataflow.Dtos;
+using Dataflow.Models;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace Dataflow.Services.UserService;
-
-public class UserService : IUserService
+namespace Dataflow.Services.UserService
 {
-    private static List<User?> _users = new()
+    public class UserService : IUserService
     {
-        new User()
+        private static List<User> _users = new()
         {
-            Id = 1,
-            Username = "admin",
-            PasswordHash = "admin",
-            Email = "example@example.com",
-            FirstName = "Admin",
-            LastName = "Admin",
-            PhoneNumber = "1234567890",
-            CreatedAt = DateTime.Now,
-            IsOnline = true,
-            Tier = Tier.Tier3,
-            ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-        },
-        new User()
+            new User()
+            {
+                Id = 1,
+                Username = "admin",
+                Password = "admin",
+                Email = "example@example.com",
+                FirstName = "Admin",
+                LastName = "Admin",
+                RegistrationDate = DateTime.Today
+            },
+            new User()
+            {
+                Id = 2,
+                Username = "user",
+                Password = "user",
+                Email = "example@example.com",
+                FirstName = "User",
+                LastName = "User",
+                RegistrationDate = DateTime.Today
+            }
+        };
+
+        private readonly IMapper _mapper;
+
+        public UserService(IMapper mapper)
         {
-            Id = 2,
-            Username = "user",
-            PasswordHash = "user",
-            Email = "example@example.com",
-            FirstName = "User",
-            LastName = "User",
-            PhoneNumber = "1234567890",
-            CreatedAt = DateTime.Now,
-            IsOnline = true,
-            Tier = Tier.Tier1,
-            ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+            _mapper = mapper;
         }
-    };
 
-    public async Task<ServiceResponse<List<User?>>> GetAllUsers()
-    {
-        var serviceResponse = new ServiceResponse<List<User?>>();
-        serviceResponse.Data = _users;
-        return serviceResponse;
-    }
-
-    public async Task<ServiceResponse<User?>> GetUserById(int id)
-    {
-        var serviceResponse = new ServiceResponse<User?>();
-        serviceResponse.Data = _users.FirstOrDefault(u => u?.Id == id);
-        return serviceResponse;
-    }
-
-    public async Task<ServiceResponse<User?>> AddUser(User? newUser)
-    {
-        var serviceResponse = new ServiceResponse<User?>();
-        _users.Add(newUser);
-        serviceResponse.Data = newUser;
-        return serviceResponse;
-    }
-
-    public async Task<ServiceResponse<User?>> DeleteUser(int id)
-    {
-        var user = _users.FirstOrDefault(u => u != null && u.Id == id);
-        _ = _users.Remove(user);
-        _users.Remove(user);
-        var serviceResponse = new ServiceResponse<User?>();
-        serviceResponse.Data = user;
-        return serviceResponse;
-    }
-
-    public async Task<ServiceResponse<User?>>PatchUser(int id, User updatedUser)
-    {
-        var serviceResponse = new ServiceResponse<User?>();
-        var existingUser = _users.FirstOrDefault(u => u != null && u.Id == id);
-
-        if (existingUser != null)
+        public async Task<ServiceResponse<List<GetUserDTO>>> GetAllUsers()
         {
-            existingUser.Username = updatedUser.Username;
-            existingUser.PasswordHash = updatedUser.PasswordHash;
-            existingUser.Email = updatedUser.Email;
-            existingUser.FirstName = updatedUser.FirstName;
-            existingUser.LastName = updatedUser.LastName;
-            existingUser.PhoneNumber = updatedUser.PhoneNumber;
-            existingUser.CreatedAt = updatedUser.CreatedAt;
-            existingUser.IsOnline = updatedUser.IsOnline;
-            existingUser.Tier = updatedUser.Tier;
-            existingUser.ProfilePicUrl = updatedUser.ProfilePicUrl;
-            
-            serviceResponse.Data = existingUser;
+            var serviceResponse = new ServiceResponse<List<GetUserDTO>>();
+            serviceResponse.Data = _users.Select(user => _mapper.Map<GetUserDTO>(user)).ToList();
+            serviceResponse.Success = true;
+            serviceResponse.Message = "All users retrieved.";
             return serviceResponse;
-            
         }
-        serviceResponse.Success = false;
-        serviceResponse.Message = "User not found.";
-        return serviceResponse;
+
+        public async Task<ServiceResponse<GetUserDTO>> GetUserById(int id)
+        {
+            var serviceResponse = new ServiceResponse<GetUserDTO>();
+            var user = _users.FirstOrDefault(u => u.Id == id);
+            serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
+            serviceResponse.Success = true;
+            serviceResponse.Message = "User retrieved.";
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetUserDTO>> AddUser(AddUserDTO newUser)
+        {
+            var serviceResponse = new ServiceResponse<GetUserDTO>();
+            serviceResponse.Data = _mapper.Map<GetUserDTO>(newUser);
+            _users.Add(_mapper.Map<User>(newUser));
+            serviceResponse.Success = true;
+            serviceResponse.Message = "User added.";
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetUserDTO>> DeleteUser(int id)
+        {
+            var user = _users.FirstOrDefault(u => u.Id == id);
+            _users.Remove(user);
+            var serviceResponse = new ServiceResponse<GetUserDTO>();
+            serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
+            serviceResponse.Success = true;
+            serviceResponse.Message = "User deleted.";
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetUserDTO?>> PatchUser(int id, AddUserDTO updatedUser)
+        {
+            var serviceResponse = new ServiceResponse<GetUserDTO>();
+            var existingUser = _users.FirstOrDefault(u => u.Id == id);
+
+            if (existingUser != null)
+            {
+                existingUser.Id = 1;
+                existingUser.Username = updatedUser.Username;
+                existingUser.Password = updatedUser.Password;
+                existingUser.Email = updatedUser.Email;
+                existingUser.FirstName = updatedUser.FirstName;
+                existingUser.LastName = updatedUser.LastName;
+                existingUser.RegistrationDate = DateTime.Today;
+
+                serviceResponse.Data = _mapper.Map<GetUserDTO>(existingUser);
+                return serviceResponse;
+            }
+            serviceResponse.Success = false;
+            serviceResponse.Message = "User not found.";
+            return serviceResponse;
+        }
     }
 }

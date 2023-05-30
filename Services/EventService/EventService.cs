@@ -47,16 +47,16 @@ public class EventService : IEventService
         return true;
     }
 
-    public Event? PatchEvent(int id, User updatedEvent)
+    public Event? PatchEvent(int id, Event updatedEvent)
     {
         var existingEvent = _events.FirstOrDefault(e => e.Id == id);
         if (existingEvent == null) return null;
-        existingEvent.Title = updatedEvent.FirstName;
-        existingEvent.Description = updatedEvent.LastName;
-        existingEvent.Start = updatedEvent.CreatedAt;
-        existingEvent.End = updatedEvent.CreatedAt;
-        existingEvent.IsAllDay = updatedEvent.IsOnline;
-        existingEvent.Location = updatedEvent.PhoneNumber;
+        existingEvent.Title = updatedEvent.Title;
+        existingEvent.Description = updatedEvent.Description;
+        existingEvent.Start = updatedEvent.Start;
+        existingEvent.End = updatedEvent.End;
+        existingEvent.IsAllDay = updatedEvent.IsAllDay;
+        existingEvent.Location = updatedEvent.Location;
         existingEvent.UpdatedAt = DateTime.Now;
         return existingEvent;
     }

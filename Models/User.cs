@@ -7,12 +7,8 @@ public class User
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
-    public string PhoneNumber { get; set; } = string.Empty;
-    public string PasswordHash { get; set; } = string.Empty;
-    public DateTime CreatedAt { get; set; } = default!;
-    public bool IsOnline { get; set; } = default!;
-    public Tier Tier { get; set; } = default!;
-    public string ProfilePicUrl { get; set; } = string.Empty;
+    public string Password { get; set; } = string.Empty;
+    public DateTime RegistrationDate { get; set; } = default!;
 
     // Navigation properties
     public List<Contact> ContactList { get; set; } = new List<Contact>();

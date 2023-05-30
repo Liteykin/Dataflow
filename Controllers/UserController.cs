@@ -1,4 +1,5 @@
-﻿using Dataflow.Models;
+﻿using Dataflow.Dtos;
+using Dataflow.Models;
 using Dataflow.Services.UserService;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,38 +10,7 @@ namespace Dataflow.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
-
-    private static List<User?> _users = new()
-    {
-        new User()
-        {
-            Id = 1,
-            Username = "admin",
-            PasswordHash = "admin",
-            Email = "example@example.com",
-            FirstName = "Admin",
-            LastName = "Admin",
-            PhoneNumber = "1234567890",
-            CreatedAt = DateTime.Now,
-            IsOnline = true,
-            Tier = Tier.Tier3,
-            ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-        },
-        new User()
-        {
-            Id = 2,
-            Username = "user",
-            PasswordHash = "user",
-            Email = "example@example.com",
-            FirstName = "User",
-            LastName = "User",
-            PhoneNumber = "1234567890",
-            CreatedAt = DateTime.Now,
-            IsOnline = true,
-            Tier = Tier.Tier1,
-            ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-        }
-    };
+    
 
     public UserController(IUserService userService)
     {
@@ -48,19 +18,19 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("GetAllUsers")]
-    public async Task<ActionResult<List<User>>> Get()
+    public async Task<ActionResult<List<GetUserDTO>>> Get()
     {
         return Ok(await _userService.GetAllUsers());
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> Get(int id)
+    public async Task<ActionResult<GetUserDTO>> Get(int id)
     {
         return Ok(await _userService.GetUserById(id));
     }
 
     [HttpPost("AddUser")]
-    public async Task<ActionResult<User>> Post(User newUser)
+    public async Task<ActionResult<AddUserDTO>> Post(AddUserDTO newUser)
     {
         return Ok(await _userService.AddUser(newUser));
     }
@@ -73,7 +43,7 @@ public class UserController : ControllerBase
 
 
     [HttpPatch("PatchUser/{id}")]
-    public async Task<IActionResult> Patch(int id, User user)
+    public async Task<IActionResult> Patch(int id, AddUserDTO user)
     {
         return Ok(await _userService.PatchUser(id, user));
     }

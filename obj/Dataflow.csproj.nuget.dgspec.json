@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\litey\\RiderProjects\\Dataflow\\Dataflow.csproj": {}
+    "C:\\Github\\Dataflow\\Dataflow.csproj": {}
   },
   "projects": {
-    "C:\\Users\\litey\\RiderProjects\\Dataflow\\Dataflow.csproj": {
+    "C:\\Github\\Dataflow\\Dataflow.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\litey\\RiderProjects\\Dataflow\\Dataflow.csproj",
+        "projectUniqueName": "C:\\Github\\Dataflow\\Dataflow.csproj",
         "projectName": "Dataflow",
-        "projectPath": "C:\\Users\\litey\\RiderProjects\\Dataflow\\Dataflow.csproj",
+        "projectPath": "C:\\Github\\Dataflow\\Dataflow.csproj",
         "packagesPath": "C:\\Users\\litey\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\litey\\RiderProjects\\Dataflow\\obj\\",
+        "outputPath": "C:\\Github\\Dataflow\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\litey\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -38,6 +38,14 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
+            "AutoMapper.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[12.0.1, )"
+            },
             "FaunaDB.Client": {
               "target": "Package",
               "version": "[4.2.0, )"

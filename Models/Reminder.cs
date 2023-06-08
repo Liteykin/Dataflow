@@ -3,8 +3,11 @@
 public class Reminder
 {
     public int Id { get; set; }
-    public int UserId { get; set; } = default!;
+    public int UserId { get; set; }
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
     public DateTime ReminderTime { get; set; } = default!;
+
+    // Navigation property
+    public User User { get; set; }
 }

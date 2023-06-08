@@ -11,12 +11,10 @@ public class User
     public string PasswordHash { get; set; } = string.Empty;
     public DateTime CreatedAt { get; set; } = default!;
     public bool IsOnline { get; set; } = default!;
-    public Tier Tier { get; set; } = default!;
     public string ProfilePicUrl { get; set; } = string.Empty;
 
     // Navigation properties
     public List<Contact> ContactList { get; set; } = new List<Contact>();
-    public List<Note> NoteList { get; set; } = new List<Note>();
     public List<Reminder> ReminderList { get; set; } = new List<Reminder>();
     public List<ToDo> ToDoList { get; set; } = new List<ToDo>();
 }

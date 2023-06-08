@@ -17,7 +17,6 @@ public class UserService : IUserService
             PhoneNumber = "1234567890",
             CreatedAt = DateTime.Now,
             IsOnline = true,
-            Tier = Tier.Tier3,
             ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         },
         new User()
@@ -31,7 +30,6 @@ public class UserService : IUserService
             PhoneNumber = "1234567890",
             CreatedAt = DateTime.Now,
             IsOnline = true,
-            Tier = Tier.Tier1,
             ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         }
     };
@@ -83,7 +81,6 @@ public class UserService : IUserService
             existingUser.PhoneNumber = updatedUser.PhoneNumber;
             existingUser.CreatedAt = updatedUser.CreatedAt;
             existingUser.IsOnline = updatedUser.IsOnline;
-            existingUser.Tier = updatedUser.Tier;
             existingUser.ProfilePicUrl = updatedUser.ProfilePicUrl;
             
             serviceResponse.Data = existingUser;

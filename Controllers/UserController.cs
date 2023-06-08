@@ -23,7 +23,6 @@ public class UserController : ControllerBase
             PhoneNumber = "1234567890",
             CreatedAt = DateTime.Now,
             IsOnline = true,
-            Tier = Tier.Tier3,
             ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         },
         new User()
@@ -37,7 +36,6 @@ public class UserController : ControllerBase
             PhoneNumber = "1234567890",
             CreatedAt = DateTime.Now,
             IsOnline = true,
-            Tier = Tier.Tier1,
             ProfilePicUrl = "https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
         }
     };

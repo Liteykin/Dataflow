@@ -7,4 +7,7 @@ public class Note
     public string Title { get; set; } = string.Empty;
     public string Content { get; set; } = string.Empty;
     public DateTime? LastEdited { get; set; } = default!;
+    
+    // Navigation Properties
+    public User User { get; set; } = default!;
 }

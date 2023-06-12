@@ -10,4 +10,7 @@ public class ToDo
     public bool IsCompleted { get; set; } = default!;
     public DateTime CreatedAt { get; set; } = default!;
     public DateTime UpdatedAt { get; set; } = default!;
+    
+    // Navigation Properties
+    public User User { get; set; } = default!;
 }

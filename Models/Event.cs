@@ -12,4 +12,7 @@ public class Event
     public string Location { get; set; } = string.Empty;
     public DateTime? CreatedAt { get; set; } = default!;
     public DateTime? UpdatedAt { get; set; } = default!;
+    
+    // Navigation Properties
+    public User User { get; set; } = default!;
 }

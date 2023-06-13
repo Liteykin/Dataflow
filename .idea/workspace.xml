@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="40b6c242-3656-4b06-a762-3f8fdeefae62" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/AutoMapperProfile.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/ContactController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/ReminderController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Controllers/TodoController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dtos/ContactDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dtos/ProductDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dtos/ReminderDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Dtos/TodoDTO.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/Order.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/OrderProduct.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Models/Product.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/ContactService/ContactService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/ContactService/IContactService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Product/IProductService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/Product/ProductService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/TodoService/ITodoService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/TodoService/TodoService.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dataflow.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dtos/AddUserDTO.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dtos/GetUserDTO.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Dtos/UserDTO.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Infrastructure/DbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Infrastructure/DbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Event.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Note.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/Reminder.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/ToDo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/Todo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Models/User.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/EventService/EventService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/EventService/IEventService.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/UserService/IUserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/UserService/IUserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/UserService/UserService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Services/UserService/UserService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net7.0/Dataflow.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net7.0/Dataflow.deps.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net7.0/Dataflow.dll" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net7.0/Dataflow.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net7.0/Dataflow.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net7.0/Dataflow.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/Debug/net7.0/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/bin/Debug/net7.0/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Dataflow.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Dataflow.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Dataflow.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Dataflow.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.csproj.CoreCompileInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.genruntimeconfig.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/Dataflow.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/ref/Dataflow.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/ref/Dataflow.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/Debug/net7.0/refint/Dataflow.dll" beforeDir="false" afterPath="$PROJECT_DIR$/obj/Debug/net7.0/refint/Dataflow.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.assets.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.nuget.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/obj/project.packagespec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/obj/rider.project.restore.info" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2R82nUOArBSQRHj4Li8YQPQDlt5" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenDatabaseViewOnStart": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "master",
+    "last_opened_file_path": "C:/Users/Mark"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+</project>

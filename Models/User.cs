@@ -12,7 +12,5 @@ public class User
 
     // Navigation properties
     public List<Contact> ContactList { get; set; } = new List<Contact>();
-    public List<Note> NoteList { get; set; } = new List<Note>();
-    public List<Reminder> ReminderList { get; set; } = new List<Reminder>();
-    public List<ToDo> ToDoList { get; set; } = new List<ToDo>();
+    public List<Todo> ToDoList { get; set; } = new List<Todo>();
 }

@@ -1,6 +1,6 @@
 ﻿namespace Dataflow.Models;
 
-public class ToDo
+public class Todo
 {
     public int Id { get; set; }
     public int UserId { get; set; }

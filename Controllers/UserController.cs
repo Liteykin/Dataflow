@@ -10,7 +10,6 @@ namespace Dataflow.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
-    
 
     public UserController(IUserService userService)
     {
@@ -18,33 +17,37 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("GetAllUsers")]
-    public async Task<ActionResult<List<GetUserDTO>>> Get()
+    public async Task<ActionResult<ServiceResponse<List<GetUserDTO>>>> GetAllUsers()
     {
-        return Ok(await _userService.GetAllUsers());
+        var response = await _userService.GetAllUsers();
+        return Ok(response);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<GetUserDTO>> Get(int id)
+    public async Task<ActionResult<ServiceResponse<GetUserDTO>>> GetUserById(int id)
     {
-        return Ok(await _userService.GetUserById(id));
+        var response = await _userService.GetUserById(id);
+        return Ok(response);
     }
 
     [HttpPost("AddUser")]
-    public async Task<ActionResult<AddUserDTO>> Post(AddUserDTO newUser)
+    public async Task<ActionResult<ServiceResponse<GetUserDTO>>> AddUser(CreateUserDTO newUser)
     {
-        return Ok(await _userService.AddUser(newUser));
+        var response = await _userService.AddUser(newUser);
+        return Ok(response);
     }
 
     [HttpDelete("DeleteUser/{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<ActionResult<ServiceResponse<GetUserDTO>>> DeleteUser(int id)
     {
-        return Ok(await _userService.DeleteUser(id));
+        var response = await _userService.DeleteUser(new DeleteUserDTO { Id = id });
+        return Ok(response);
     }
 
-
     [HttpPatch("PatchUser/{id}")]
-    public async Task<IActionResult> Patch(int id, AddUserDTO user)
+    public async Task<ActionResult<ServiceResponse<GetUserDTO>>> PatchUser(int id, UpdateUserDTO user)
     {
-        return Ok(await _userService.PatchUser(id, user));
+        var response = await _userService.PatchUser(id, user);
+        return Ok(response);
     }
 }

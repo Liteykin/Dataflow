@@ -3857,24 +3857,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\litey\\.nuget\\packages\\": {}
+    "C:\\Users\\Mark\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Github\\Dataflow\\Dataflow.csproj",
+      "projectUniqueName": "C:\\Users\\Mark\\RiderProjects\\Dataflow_new\\Dataflow.csproj",
       "projectName": "Dataflow",
-      "projectPath": "C:\\Github\\Dataflow\\Dataflow.csproj",
-      "packagesPath": "C:\\Users\\litey\\.nuget\\packages\\",
-      "outputPath": "C:\\Github\\Dataflow\\obj\\",
+      "projectPath": "C:\\Users\\Mark\\RiderProjects\\Dataflow_new\\Dataflow.csproj",
+      "packagesPath": "C:\\Users\\Mark\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Mark\\RiderProjects\\Dataflow_new\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\litey\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Mark\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
+        "C:\\Program Files\\dotnet\\sdk\\7.0.302\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3963,7 +3964,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,47 +1,33 @@
 ﻿using AutoMapper;
 using Dataflow.Dtos;
 using Dataflow.Models;
-
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Dataflow.Data;
 
 namespace Dataflow.Services.UserService
 {
     public class UserService : IUserService
     {
-        private static List<User> _users = new List<User>
-        {
-            new User
-            {
-                Id = 1,
-                Username = "admin",
-                Password = "admin",
-                Email = "example@example.com",
-                FirstName = "Admin",
-                LastName = "Admin",
-                RegistrationDate = DateTime.Today
-            },
-            new User
-            {
-                Id = 2,
-                Username = "user",
-                Password = "user",
-                Email = "example@example.com",
-                FirstName = "User",
-                LastName = "User",
-                RegistrationDate = DateTime.Today
-            }
-        };
-
+        private readonly DataflowContext _context;
         private readonly IMapper _mapper;
 
-        public UserService(IMapper mapper)
+        public UserService(DataflowContext context, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<ServiceResponse<List<GetUserDTO>>> GetAllUsers()
         {
+            var users = await _context.Users.ToListAsync();
+            var userDTOs = _mapper.Map<List<GetUserDTO>>(users);
+
             var serviceResponse = new ServiceResponse<List<GetUserDTO>>();
-            serviceResponse.Data = _users.Select(user => _mapper.Map<GetUserDTO>(user)).ToList();
+            serviceResponse.Data = userDTOs;
             serviceResponse.Success = true;
             serviceResponse.Message = "All users retrieved.";
             return serviceResponse;
@@ -49,29 +35,36 @@ namespace Dataflow.Services.UserService
 
         public async Task<ServiceResponse<GetUserDTO>> GetUserById(int id)
         {
-            var serviceResponse = new ServiceResponse<GetUserDTO>();
-            var user = _users.FirstOrDefault(u => u.Id == id);
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (user != null)
             {
-                serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
+                var userDTO = _mapper.Map<GetUserDTO>(user);
+
+                var serviceResponse = new ServiceResponse<GetUserDTO>();
+                serviceResponse.Data = userDTO;
                 serviceResponse.Success = true;
                 serviceResponse.Message = "User retrieved.";
+                return serviceResponse;
             }
             else
             {
+                var serviceResponse = new ServiceResponse<GetUserDTO>();
                 serviceResponse.Success = false;
                 serviceResponse.Message = "User not found.";
+                return serviceResponse;
             }
-            return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetUserDTO>> AddUser(CreateUserDTO newUser)
         {
-            var serviceResponse = new ServiceResponse<GetUserDTO>();
             var user = _mapper.Map<User>(newUser);
-            user.Id = _users.Max(u => u.Id) + 1;
-            _users.Add(user);
-            serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+
+            var userDTO = _mapper.Map<GetUserDTO>(user);
+
+            var serviceResponse = new ServiceResponse<GetUserDTO>();
+            serviceResponse.Data = userDTO;
             serviceResponse.Success = true;
             serviceResponse.Message = "User added.";
             return serviceResponse;
@@ -79,28 +72,32 @@ namespace Dataflow.Services.UserService
 
         public async Task<ServiceResponse<GetUserDTO>> DeleteUser(DeleteUserDTO deleteUser)
         {
-            var user = _users.FirstOrDefault(u => u.Id == deleteUser.Id);
-            var serviceResponse = new ServiceResponse<GetUserDTO>();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Id == deleteUser.Id);
             if (user != null)
             {
-                _users.Remove(user);
-                serviceResponse.Data = _mapper.Map<GetUserDTO>(user);
+                _context.Users.Remove(user);
+                await _context.SaveChangesAsync();
+
+                var userDTO = _mapper.Map<GetUserDTO>(user);
+
+                var serviceResponse = new ServiceResponse<GetUserDTO>();
+                serviceResponse.Data = userDTO;
                 serviceResponse.Success = true;
                 serviceResponse.Message = "User deleted.";
+                return serviceResponse;
             }
             else
             {
+                var serviceResponse = new ServiceResponse<GetUserDTO>();
                 serviceResponse.Success = false;
                 serviceResponse.Message = "User not found.";
+                return serviceResponse;
             }
-            return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetUserDTO>> PatchUser(int id, UpdateUserDTO updatedUser)
         {
-            var serviceResponse = new ServiceResponse<GetUserDTO>();
-            var existingUser = _users.FirstOrDefault(u => u.Id == id);
-
+            var existingUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
             if (existingUser != null)
             {
                 existingUser.Username = updatedUser.Username;
@@ -109,16 +106,23 @@ namespace Dataflow.Services.UserService
                 existingUser.LastName = updatedUser.LastName;
                 existingUser.Email = updatedUser.Email;
 
-                serviceResponse.Data = _mapper.Map<GetUserDTO>(existingUser);
+                await _context.SaveChangesAsync();
+
+                var userDTO = _mapper.Map<GetUserDTO>(existingUser);
+
+                var serviceResponse = new ServiceResponse<GetUserDTO>();
+                serviceResponse.Data = userDTO;
                 serviceResponse.Success = true;
                 serviceResponse.Message = "User updated.";
+                return serviceResponse;
             }
             else
             {
+                var serviceResponse = new ServiceResponse<GetUserDTO>();
                 serviceResponse.Success = false;
                 serviceResponse.Message = "User not found.";
+                return serviceResponse;
             }
-            return serviceResponse;
         }
     }
 }

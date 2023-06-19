@@ -1,51 +1,33 @@
 ﻿using AutoMapper;
 using Dataflow.Dtos;
 using Dataflow.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dataflow.Data;
 
 namespace Dataflow.Services.ContactService
 {
     public class ContactService : IContactService
     {
-        private static List<Contact> _contacts = new()
-        {
-            new Contact()
-            {
-                Id = 1,
-                UserId = 1,
-                FirstName = "John",
-                LastName = "Doe",
-                Email = "john.doe@example.com",
-                PhoneNumber = "1234567890",
-                Address = "123 Main St"
-            },
-            new Contact()
-            {
-                Id = 2,
-                UserId = 1,
-                FirstName = "Jane",
-                LastName = "Smith",
-                Email = "jane.smith@example.com",
-                PhoneNumber = "9876543210",
-                Address = "456 Elm St"
-            }
-        };
-
+        private readonly DataflowContext _context;
         private readonly IMapper _mapper;
 
-        public ContactService(IMapper mapper)
+        public ContactService(DataflowContext context, IMapper mapper)
         {
+            _context = context;
             _mapper = mapper;
         }
 
         public async Task<ServiceResponse<List<GetContactDTO>>> GetAllContacts()
         {
-            var serviceResponse = new ServiceResponse<List<GetContactDTO>>();
-            serviceResponse.Data = _contacts.Select(contact => _mapper.Map<GetContactDTO>(contact)).ToList();
+            var contacts = await _context.Contacts.ToListAsync();
+            var contactDTOs = _mapper.Map<List<GetContactDTO>>(contacts);
 
+            var serviceResponse = new ServiceResponse<List<GetContactDTO>>();
+            serviceResponse.Data = contactDTOs;
             serviceResponse.Success = true;
             serviceResponse.Message = "All contacts retrieved.";
             return serviceResponse;
@@ -53,31 +35,36 @@ namespace Dataflow.Services.ContactService
 
         public async Task<ServiceResponse<GetContactDTO>> GetContactById(int id)
         {
-            var serviceResponse = new ServiceResponse<GetContactDTO>();
-            var contact = _contacts.FirstOrDefault(c => c.Id == id);
+            var contact = await _context.Contacts.FirstOrDefaultAsync(c => c.Id == id);
             if (contact != null)
             {
-                serviceResponse.Data = _mapper.Map<GetContactDTO>(contact);
+                var contactDTO = _mapper.Map<GetContactDTO>(contact);
 
+                var serviceResponse = new ServiceResponse<GetContactDTO>();
+                serviceResponse.Data = contactDTO;
                 serviceResponse.Success = true;
                 serviceResponse.Message = "Contact retrieved.";
+                return serviceResponse;
             }
             else
             {
+                var serviceResponse = new ServiceResponse<GetContactDTO>();
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Contact not found.";
+                return serviceResponse;
             }
-            return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetContactDTO>> AddContact(ContactDTO newContact)
         {
-            var serviceResponse = new ServiceResponse<GetContactDTO>();
             var contact = _mapper.Map<Contact>(newContact);
-            contact.Id = GenerateNewContactId();
-            _contacts.Add(contact);
-            serviceResponse.Data = _mapper.Map<GetContactDTO>(contact);
+            _context.Contacts.Add(contact);
+            await _context.SaveChangesAsync();
 
+            var contactDTO = _mapper.Map<GetContactDTO>(contact);
+
+            var serviceResponse = new ServiceResponse<GetContactDTO>();
+            serviceResponse.Data = contactDTO;
             serviceResponse.Success = true;
             serviceResponse.Message = "Contact added.";
             return serviceResponse;
@@ -85,29 +72,32 @@ namespace Dataflow.Services.ContactService
 
         public async Task<ServiceResponse<GetContactDTO>> DeleteContact(int id)
         {
-            var contact = _contacts.FirstOrDefault(c => c.Id == id);
-            var serviceResponse = new ServiceResponse<GetContactDTO>();
-            serviceResponse.Data = _mapper.Map<GetContactDTO>(contact);
+            var contact = await _context.Contacts.FirstOrDefaultAsync(c => c.Id == id);
             if (contact != null)
             {
-                _contacts.Remove(contact);
+                _context.Contacts.Remove(contact);
+                await _context.SaveChangesAsync();
 
+                var contactDTO = _mapper.Map<GetContactDTO>(contact);
+
+                var serviceResponse = new ServiceResponse<GetContactDTO>();
+                serviceResponse.Data = contactDTO;
                 serviceResponse.Success = true;
                 serviceResponse.Message = "Contact deleted.";
+                return serviceResponse;
             }
             else
             {
+                var serviceResponse = new ServiceResponse<GetContactDTO>();
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Contact not found.";
+                return serviceResponse;
             }
-            return serviceResponse;
         }
 
         public async Task<ServiceResponse<GetContactDTO>> UpdateContact(int id, UpdateContactDTO updatedContact)
         {
-            var serviceResponse = new ServiceResponse<GetContactDTO>();
-            var existingContact = _contacts.FirstOrDefault(c => c.Id == id);
-
+            var existingContact = await _context.Contacts.FirstOrDefaultAsync(c => c.Id == id);
             if (existingContact != null)
             {
                 existingContact.FirstName = updatedContact.FirstName;
@@ -116,23 +106,23 @@ namespace Dataflow.Services.ContactService
                 existingContact.PhoneNumber = updatedContact.PhoneNumber;
                 existingContact.Address = updatedContact.Address;
 
-                serviceResponse.Data = _mapper.Map<GetContactDTO>(existingContact);
+                await _context.SaveChangesAsync();
 
+                var contactDTO = _mapper.Map<GetContactDTO>(existingContact);
+
+                var serviceResponse = new ServiceResponse<GetContactDTO>();
+                serviceResponse.Data = contactDTO;
                 serviceResponse.Success = true;
                 serviceResponse.Message = "Contact updated.";
+                return serviceResponse;
             }
             else
             {
-                serviceResponse.Data = null;
+                var serviceResponse = new ServiceResponse<GetContactDTO>();
                 serviceResponse.Success = false;
                 serviceResponse.Message = "Contact not found.";
+                return serviceResponse;
             }
-            return serviceResponse;
-        }
-
-        private int GenerateNewContactId()
-        {
-            return _contacts.Max(c => c.Id) + 1;
         }
     }
 }

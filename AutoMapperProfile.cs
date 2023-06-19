@@ -37,6 +37,26 @@ namespace Dataflow
 
             CreateMap<User, UpdateUserDTO>();
             CreateMap<UpdateUserDTO, User>();
+
+            // Category mappings
+            CreateMap<Category, GetCategoryDTO>();
+            CreateMap<GetCategoryDTO, Category>();
+
+            CreateMap<Category, CategoryDTO>();
+            CreateMap<CategoryDTO, Category>();
+
+            CreateMap<Category, UpdateCategoryDTO>();
+            CreateMap<UpdateCategoryDTO, Category>();
+
+            // Product mappings
+            CreateMap<Product, GetProductDTO>();
+            CreateMap<GetProductDTO, Product>();
+
+            CreateMap<Product, ProductDTO>();
+            CreateMap<ProductDTO, Product>();
+
+            CreateMap<Product, UpdateProductDTO>();
+            CreateMap<UpdateProductDTO, Product>();
         }
     }
 }
